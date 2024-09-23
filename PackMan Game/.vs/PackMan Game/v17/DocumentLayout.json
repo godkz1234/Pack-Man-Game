@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\dddde\\Desktop\\\uD559\uC6D0\uC218\uC5C5 (\uD504\uB85C\uADF8\uB798\uBC0D)\\Pack-Man-Game\\PackMan Game\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D90B9199-BC19-4C33-A4DF-72E822B57EFE}|PackMan Game.vcxproj|C:\\Users\\dddde\\Desktop\\\uD559\uC6D0\uC218\uC5C5 (\uD504\uB85C\uADF8\uB798\uBC0D)\\Pack-Man-Game\\PackMan Game\\Main Source.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D90B9199-BC19-4C33-A4DF-72E822B57EFE}|PackMan Game.vcxproj|solutionrelative:Main Source.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D90B9199-BC19-4C33-A4DF-72E822B57EFE}|PackMan Game.vcxproj|C:\\Users\\dddde\\Desktop\\\uD559\uC6D0\uC218\uC5C5 (\uD504\uB85C\uADF8\uB798\uBC0D)\\Pack-Man-Game\\PackMan Game\\Player.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D90B9199-BC19-4C33-A4DF-72E822B57EFE}|PackMan Game.vcxproj|solutionrelative:Player.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D90B9199-BC19-4C33-A4DF-72E822B57EFE}|PackMan Game.vcxproj|C:\\Users\\dddde\\Desktop\\\uD559\uC6D0\uC218\uC5C5 (\uD504\uB85C\uADF8\uB798\uBC0D)\\Pack-Man-Game\\PackMan Game\\Monster.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D90B9199-BC19-4C33-A4DF-72E822B57EFE}|PackMan Game.vcxproj|solutionrelative:Monster.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Monster.c",
+              "DocumentMoniker": "C:\\Users\\dddde\\Desktop\\\uD559\uC6D0\uC218\uC5C5 (\uD504\uB85C\uADF8\uB798\uBC0D)\\Pack-Man-Game\\PackMan Game\\Monster.c",
+              "RelativeDocumentMoniker": "Monster.c",
+              "ToolTip": "C:\\Users\\dddde\\Desktop\\\uD559\uC6D0\uC218\uC5C5 (\uD504\uB85C\uADF8\uB798\uBC0D)\\Pack-Man-Game\\PackMan Game\\Monster.c",
+              "RelativeToolTip": "Monster.c",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-09-23T11:53:43.53Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Player.c",
+              "DocumentMoniker": "C:\\Users\\dddde\\Desktop\\\uD559\uC6D0\uC218\uC5C5 (\uD504\uB85C\uADF8\uB798\uBC0D)\\Pack-Man-Game\\PackMan Game\\Player.c",
+              "RelativeDocumentMoniker": "Player.c",
+              "ToolTip": "C:\\Users\\dddde\\Desktop\\\uD559\uC6D0\uC218\uC5C5 (\uD504\uB85C\uADF8\uB798\uBC0D)\\Pack-Man-Game\\PackMan Game\\Player.c",
+              "RelativeToolTip": "Player.c",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-09-23T11:53:16.118Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Main Source.c",
+              "DocumentMoniker": "C:\\Users\\dddde\\Desktop\\\uD559\uC6D0\uC218\uC5C5 (\uD504\uB85C\uADF8\uB798\uBC0D)\\Pack-Man-Game\\PackMan Game\\Main Source.c",
+              "RelativeDocumentMoniker": "Main Source.c",
+              "ToolTip": "C:\\Users\\dddde\\Desktop\\\uD559\uC6D0\uC218\uC5C5 (\uD504\uB85C\uADF8\uB798\uBC0D)\\Pack-Man-Game\\PackMan Game\\Main Source.c",
+              "RelativeToolTip": "Main Source.c",
+              "ViewState": "AQIAABcAAAAAAAAAAAAMwIMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-09-23T11:52:14.644Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
