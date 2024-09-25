@@ -18,11 +18,5 @@
     <ClCompile Include="Main Source.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Player.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Monster.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>
