@@ -7,7 +7,6 @@
 #define WIDTH 31
 #define HEIGHT 31
 #define ITEM_COUNT 10  // 생성할 아이템 개수
-#define GHOST_COUNT 3  // 고스트 수
 
 #define UP 72
 #define LEFT 75
@@ -57,14 +56,13 @@ char maze[HEIGHT][WIDTH] = {
 { '1','0','1','1','1','1','1','1','1','1','0','1','0','0','0','1','0','0','0','1','0','1','1','1','1','1','1','1','1','0','1' },
 { '1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1' },
 { '1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1' }
-
 };
 
 // Position 함수 선언
 void Position(int x, int y);
 
-void Render(Character character, Character ghosts[], Item items[], int score) {
-    system("cls");  // Clear the console
+void Render(Character player, Character ghosts[], int ghostCount, Item items[], int score) {
+    system("cls");  
 
     for (int i = 0; i < HEIGHT; i++) {
         for (int j = 0; j < WIDTH; j++) {
@@ -78,12 +76,12 @@ void Render(Character character, Character ghosts[], Item items[], int score) {
         printf("\n");
     }
 
-    // 캐릭터 위치에 캐릭터 그리기
-    Position(character.x, character.y);
-    printf("%s", character.shape);
+    // 플레이어 위치에 플레이어 그리기
+    Position(player.x, player.y);
+    printf("%s", player.shape);
 
-    // 고스트들 위치에 고스트 그리기
-    for (int i = 0; i < GHOST_COUNT; i++) {
+    // 고스트 위치에 고스트들 그리기
+    for (int i = 0; i < ghostCount; i++) {
         Position(ghosts[i].x, ghosts[i].y);
         printf("%s", ghosts[i].shape);
     }
@@ -109,7 +107,7 @@ void Position(int x, int y) {
 void MoveGhost(Character* ghost, Character player, int* moveCounter) {
     (*moveCounter)++;
     if (*moveCounter % 3 != 0) {
-        return;  // 고스트 속도 조절
+        return;  // 3번 루프 중 1번만 이동, 고스트의 속도 조절
     }
 
     if (ghost->x < player.x) {
@@ -173,82 +171,123 @@ int AllItemsCollected(Item items[]) {
 
 void GameOver() {
     Position(0, HEIGHT + 2);
-    printf("Game Over! You were caught by a ghost!\n");
+    printf("Game Over! 고스트에게 붙잡혔습니다!\n");
 }
 
 void Victory() {
     Position(0, HEIGHT + 2);
-    printf("Victory! You collected all the items!\n");
+    printf("Victory! 맵 안에 있는 모든 아이템을 다먹었습니다.!\n");
+}
+
+// 새로운 함수: 시작 화면 출력
+void ShowStartScreen() {
+    system("cls");
+    printf("###################################\n");
+    printf("#                                 #\n");
+    printf("#          Pac-Man                #\n");
+    printf("#                                 #\n");
+    printf("#   모든 아이템을 먹으면 승리!   #\n");
+    printf("#    고스트에게서 도망치세요!     #\n");
+    printf("#                                 #\n");
+    printf("#         -조작방법-              #\n");
+    printf("#           4방향키               #\n");
+    printf("#                                 #\n");
+    printf("#   -Press any key to start-      #\n");
+    printf("#                                 #\n");
+    printf("###################################\n");
+
+    _getch();  // 사용자가 아무 키나 누르면 계속 진행
+}
+
+// 게임 종료 후 다시 시작 여부를 묻는 함수
+int AskRestart() {
+    printf("게임이 종료되었습니다. 다시 시작하려면 r키를 누르세요.\n");
+    char key = _getch();  // 사용자가 키 입력을 기다림
+    if (key == 'r' || key == 'R') {
+        return 1;  // 다시 시작
+    }
+    return 0;  // 종료
 }
 
 int main() {
-    Character player = { 1, 1, "▲" };  // 초기 위치 (1, 1)
-    Character ghosts[GHOST_COUNT] = {  // 고스트 배열 생성
-        { 20, 17, "●" },  // 고스트 1
-        { 10, 9, "●" },  // 고스트 2
-        { 25, 25, "●" }   // 고스트 3
-    };
-    Item items[ITEM_COUNT];  // 아이템 배열
-    int score = 0;
-    int moveCounter = 0;  // 고스트 이동을 제어하는 변수
-    int playerMoved = 0;  // 플레이어가 처음 움직였는지 확인하는 변수
-
-    GenerateItems(items);  // 아이템 생성
-
-    char key = 0;
-
     while (1) {
-        Render(player, ghosts, items, score);
+        // 시작 화면 호출
+        ShowStartScreen();
 
-        if (_kbhit()) {
-            key = _getch();
+        Character player = { 1, 1, "▲" };  // 초기 위치 (1, 1)
+        Character ghosts[3] = {            // 고스트 3마리 정의
+            { 20, 17, "●" },               // 고스트 1 초기 위치
+            { 22, 15, "●" },               // 고스트 2 초기 위치
+            { 18, 19, "●" }                // 고스트 3 초기 위치
+        };
+        Item items[ITEM_COUNT];  // 아이템 배열
+        int score = 0;
+        int moveCounters[3] = { 0, 0, 0 };  // 각 고스트의 이동을 제어하는 변수
+        int playerMoved = 0;  // 플레이어가 처음 움직였는지 확인하는 변수
 
-            if (key == -32) {
+        GenerateItems(items);  // 아이템 생성
+
+        char key = 0;
+
+        while (1) {
+            Render(player, ghosts, 3, items, score);
+
+            if (_kbhit()) {
                 key = _getch();
+
+                if (key == -32) {
+                    key = _getch();
+                }
+
+                switch (key) {
+                case UP:
+                    if (maze[player.y - 1][player.x] != '1') player.y--;
+                    break;
+                case LEFT:
+                    if (maze[player.y][player.x - 1] != '1') player.x--;
+                    break;
+                case RIGHT:
+                    if (maze[player.y][player.x + 1] != '1') player.x++;
+                    break;
+                case DOWN:
+                    if (maze[player.y + 1][player.x] != '1') player.y++;
+                    break;
+                }
+
+                playerMoved = 1;  // 플레이어가 움직였음을 표시
             }
 
-            switch (key) {
-            case UP:
-                if (maze[player.y - 1][player.x] != '1') player.y--;
-                break;
-            case LEFT:
-                if (maze[player.y][player.x - 1] != '1') player.x--;
-                break;
-            case RIGHT:
-                if (maze[player.y][player.x + 1] != '1') player.x++;
-                break;
-            case DOWN:
-                if (maze[player.y + 1][player.x] != '1') player.y++;
+            if (playerMoved) {
+                // 각 고스트가 플레이어를 추격하게 함
+                for (int i = 0; i < 3; i++) {
+                    MoveGhost(&ghosts[i], player, &moveCounters[i]);  // 각 고스트별로 moveCounter를 전달
+                }
+            }
+
+            // 아이템 수집 체크
+            score += CheckItemCollection(&player, items);
+
+            // 승리 조건 체크
+            if (AllItemsCollected(items)) {
+                Victory();  // 승리 함수 호출
                 break;
             }
 
-            playerMoved = 1;  // 플레이어가 움직였음을 표시
-        }
-
-        if (playerMoved) {
-            for (int i = 0; i < GHOST_COUNT; i++) {
-                MoveGhost(&ghosts[i], player, &moveCounter);  // 각 고스트가 플레이어를 추격
+            // 각 고스트와 충돌 체크
+            for (int i = 0; i < 3; i++) {
+                if (player.x == ghosts[i].x && player.y == ghosts[i].y) {
+                    GameOver();  // 게임 오버 함수 호출
+                    return 0;
+                }
             }
+
+            Sleep(100);  // 프레임 속도 조절
         }
 
-        // 아이템 수집 체크
-        score += CheckItemCollection(&player, items);
-
-        // 승리 조건 체크
-        if (AllItemsCollected(items)) {
-            Victory();  // 승리 함수 호출
-            break;
+        // 게임이 끝나면 다시 시작 여부를 물어봄
+        if (!AskRestart()) {
+            break;  // 다시 시작하지 않으면 게임 종료
         }
-
-        // 고스트와 충돌 체크
-        for (int i = 0; i < GHOST_COUNT; i++) {
-            if (player.x == ghosts[i].x && player.y == ghosts[i].y) {
-                GameOver();  // 게임 오버 함수 호출
-                return 0;
-            }
-        }
-
-        Sleep(100);  // 프레임 속도 조절
     }
 
     return 0;

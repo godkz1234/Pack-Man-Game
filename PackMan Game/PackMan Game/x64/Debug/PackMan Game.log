@@ -1,3 +1,3 @@
 ﻿  Main Source.c
-C:\Users\dddde\Desktop\학원수업 (프로그래밍)\Pack-Man-Game\PackMan Game\Main Source.c(139,11): warning C4244: '함수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\dddde\Desktop\학원수업 (프로그래밍)\Pack-Man-Game\PackMan Game\Main Source.c(137,11): warning C4244: '함수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   PackMan Game.vcxproj -> C:\Users\dddde\Desktop\학원수업 (프로그래밍)\Pack-Man-Game\PackMan Game\x64\Debug\PackMan Game.exe
