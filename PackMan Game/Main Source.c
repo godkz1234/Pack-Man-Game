@@ -59,49 +59,53 @@ char maze[HEIGHT][WIDTH] = {
 };
 
 // Position 함수 선언
-void Position(int x, int y);
+void Position(HANDLE hConsole, int x, int y);
 
-void Render(Character player, Character ghosts[], int ghostCount, Item items[], int score) {
-    system("cls");  
+void Render(HANDLE hConsole, Character player, Character ghosts[], int ghostCount, Item items[], int score) {
+    // 화면을 지우고 게임 요소를 그리기
+    COORD coord = { 0, 0 };  // 화면 좌표 초기화
+    DWORD dwBytesWritten = 0;
+    FillConsoleOutputCharacter(hConsole, ' ', WIDTH * HEIGHT, coord, &dwBytesWritten);  // 화면 지우기
 
     for (int i = 0; i < HEIGHT; i++) {
         for (int j = 0; j < WIDTH; j++) {
             if (maze[i][j] == '0') {
+                Position(hConsole, j, i);
                 printf("  ");
             }
             else if (maze[i][j] == '1') {
+                Position(hConsole, j, i);
                 printf("■");
             }
         }
-        printf("\n");
     }
 
     // 플레이어 위치에 플레이어 그리기
-    Position(player.x, player.y);
+    Position(hConsole, player.x, player.y);
     printf("%s", player.shape);
 
     // 고스트 위치에 고스트들 그리기
     for (int i = 0; i < ghostCount; i++) {
-        Position(ghosts[i].x, ghosts[i].y);
+        Position(hConsole, ghosts[i].x, ghosts[i].y);
         printf("%s", ghosts[i].shape);
     }
 
     // 활성화된 아이템 그리기
     for (int i = 0; i < ITEM_COUNT; i++) {
         if (items[i].active) {
-            Position(items[i].x, items[i].y);
+            Position(hConsole, items[i].x, items[i].y);
             printf("★");
         }
     }
 
     // 점수 표시
-    Position(0, HEIGHT + 1);
+    Position(hConsole, 0, HEIGHT + 1);
     printf("Score: %d\n", score);
 }
 
-void Position(int x, int y) {
+void Position(HANDLE hConsole, int x, int y) {
     COORD position = { x * 2, y };  // x를 2배로 하여 공백 고려
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), position);
+    SetConsoleCursorPosition(hConsole, position);
 }
 
 void MoveGhost(Character* ghost, Character player, int* moveCounter) {
@@ -169,38 +173,64 @@ int AllItemsCollected(Item items[]) {
     return 1;  // 모든 아이템이 수집되었다면 1을 반환
 }
 
-void GameOver() {
-    Position(0, HEIGHT + 2);
-    printf("Game Over! 고스트에게 붙잡혔습니다!\n");
+void GameOver(HANDLE hConsole) {
+    Position(hConsole, 0, HEIGHT + 2);
+    printf("Game Over! You were caught by a ghost!\n");
 }
 
-void Victory() {
-    Position(0, HEIGHT + 2);
-    printf("Victory! 맵 안에 있는 모든 아이템을 다먹었습니다.!\n");
+void Victory(HANDLE hConsole) {
+    Position(hConsole, 0, HEIGHT + 2);
+    printf("Victory! You collected all the items!\n");
 }
 
 // 새로운 함수: 시작 화면 출력
-void ShowStartScreen() {
-    system("cls");
-    printf("###################################\n");
-    printf("#                                 #\n");
-    printf("#          Pac-Man                #\n");
-    printf("#                                 #\n");
-    printf("#   모든 아이템을 먹으면 승리!   #\n");
-    printf("#    고스트에게서 도망치세요!     #\n");
-    printf("#                                 #\n");
-    printf("#         -조작방법-              #\n");
-    printf("#           4방향키               #\n");
-    printf("#                                 #\n");
-    printf("#   -Press any key to start-      #\n");
-    printf("#                                 #\n");
-    printf("###################################\n");
+void ShowStartScreen(HANDLE hConsole) {
+    system("cls");  // 화면을 지우기
+    SetConsoleActiveScreenBuffer(hConsole);  // 현재 활성화된 버퍼로 설정
+
+    printf("####################################################################################\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                  Pac-Man                                         #\n");
+    printf("#                                                                                  #\n");
+    printf("#                          맵안에 있는 모든 아이템을                               #\n");
+    printf("#                             전부 먹으시면 승리!                                  #\n");
+    printf("#                          고스트에게 붙잡히면 패배!                               #\n");
+    printf("#                          고스트에게서 도망치세요!                                #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                  -Controls-                                      #\n");
+    printf("#                                    방향키                                        #\n");
+    printf("#                                                                                  #\n");
+    printf("#                          -Press any key to start-                                #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("#                                                                                  #\n");
+    printf("####################################################################################\n");
+
 
     _getch();  // 사용자가 아무 키나 누르면 계속 진행
 }
 
 // 게임 종료 후 다시 시작 여부를 묻는 함수
-int AskRestart() {
+int AskRestart(HANDLE hConsole) {
+    Position(hConsole, 0, HEIGHT + 3);
     printf("게임이 종료되었습니다. 다시 시작하려면 r키를 누르세요.\n");
     char key = _getch();  // 사용자가 키 입력을 기다림
     if (key == 'r' || key == 'R') {
@@ -210,9 +240,11 @@ int AskRestart() {
 }
 
 int main() {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);  // 기본 콘솔 핸들 가져오기
+
     while (1) {
         // 시작 화면 호출
-        ShowStartScreen();
+        ShowStartScreen(hConsole);
 
         Character player = { 1, 1, "▲" };  // 초기 위치 (1, 1)
         Character ghosts[3] = {            // 고스트 3마리 정의
@@ -227,66 +259,59 @@ int main() {
 
         GenerateItems(items);  // 아이템 생성
 
-        char key = 0;
-
         while (1) {
-            Render(player, ghosts, 3, items, score);
-
+            // 사용자 입력 받기
             if (_kbhit()) {
-                key = _getch();
-
-                if (key == -32) {
+                int key = _getch();
+                if (key == 224) {  // 방향키 입력 처리
                     key = _getch();
-                }
+                    int newX = player.x;
+                    int newY = player.y;
+                    if (key == UP && maze[player.y - 1][player.x] != '1') newY--;
+                    if (key == DOWN && maze[player.y + 1][player.x] != '1') newY++;
+                    if (key == LEFT && maze[player.y][player.x - 1] != '1') newX--;
+                    if (key == RIGHT && maze[player.y][player.x + 1] != '1') newX++;
 
-                switch (key) {
-                case UP:
-                    if (maze[player.y - 1][player.x] != '1') player.y--;
-                    break;
-                case LEFT:
-                    if (maze[player.y][player.x - 1] != '1') player.x--;
-                    break;
-                case RIGHT:
-                    if (maze[player.y][player.x + 1] != '1') player.x++;
-                    break;
-                case DOWN:
-                    if (maze[player.y + 1][player.x] != '1') player.y++;
-                    break;
-                }
-
-                playerMoved = 1;  // 플레이어가 움직였음을 표시
-            }
-
-            if (playerMoved) {
-                // 각 고스트가 플레이어를 추격하게 함
-                for (int i = 0; i < 3; i++) {
-                    MoveGhost(&ghosts[i], player, &moveCounters[i]);  // 각 고스트별로 moveCounter를 전달
+                    player.x = newX;
+                    player.y = newY;
+                    playerMoved = 1;  // 플레이어가 이동했음을 표시
                 }
             }
 
-            // 아이템 수집 체크
-            score += CheckItemCollection(&player, items);
-
-            // 승리 조건 체크
-            if (AllItemsCollected(items)) {
-                Victory();  // 승리 함수 호출
-                break;
+            // 고스트 이동 처리
+            for (int i = 0; i < 3; i++) {
+                MoveGhost(&ghosts[i], player, &moveCounters[i]);
             }
 
-            // 각 고스트와 충돌 체크
+            // 플레이어가 고스트에 잡혔는지 확인
             for (int i = 0; i < 3; i++) {
                 if (player.x == ghosts[i].x && player.y == ghosts[i].y) {
-                    GameOver();  // 게임 오버 함수 호출
-                    return 0;
+                    GameOver(hConsole);  // 게임 오버 메시지 출력
+                    goto game_end;       // 게임 종료
                 }
             }
 
-            Sleep(100);  // 프레임 속도 조절
+            // 아이템 수집 처리
+            score += CheckItemCollection(&player, items);
+
+            // 모든 아이템 수집 여부 확인
+            if (AllItemsCollected(items)) {
+                Victory(hConsole);  // 승리 메시지 출력
+                goto game_end;      // 게임 종료
+            }
+
+            // 게임 화면 렌더링 (첫 이동 전에만 호출)
+            if (playerMoved) {
+                Render(hConsole, player, ghosts, 3, items, score);
+            }
+
+            Sleep(100);  // 게임 속도 조절을 위한 딜레이
         }
 
-        // 게임이 끝나면 다시 시작 여부를 물어봄
-        if (!AskRestart()) {
-            break;  // 다시 시작하지 않으면 게임 종료
+    game_end:
+        // 게임 종료 후 다시 시작 여부 확인
+        if (!AskRestart(hConsole)) {
+            break;  // 다시 시작하지 않는 경우 메인 루프 종료
         }
     }
 
