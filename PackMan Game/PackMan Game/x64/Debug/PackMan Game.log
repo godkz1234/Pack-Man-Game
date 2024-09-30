@@ -1,3 +1,2 @@
-﻿  Main Source.c
-C:\Users\dddde\Desktop\학원수업 (프로그래밍)\Pack-Man-Game\PackMan Game\Main Source.c(141,11): warning C4244: '함수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  PackMan Game.vcxproj -> C:\Users\dddde\Desktop\학원수업 (프로그래밍)\Pack-Man-Game\PackMan Game\x64\Debug\PackMan Game.exe
+﻿Main Source.obj : error LNK2019: GenerateItemsmain 함수에서 참조되는 확인할 수 없는 외부 기호
+C:\Users\dddde\Desktop\학원수업 (프로그래밍)\Pack-Man-Game\PackMan Game\x64\Debug\PackMan Game.exe : fatal error LNK1120: 1개의 확인할 수 없는 외부 참조입니다.
