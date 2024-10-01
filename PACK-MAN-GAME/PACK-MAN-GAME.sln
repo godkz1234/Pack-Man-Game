@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PACK-MAN-GAME", "PACK-MAN-GAME.vcxproj", "{AA08BE21-32EF-4FC8-A170-5C825C02BF46}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA08BE21-32EF-4FC8-A170-5C825C02BF46}.Debug|x64.ActiveCfg = Debug|x64
+		{AA08BE21-32EF-4FC8-A170-5C825C02BF46}.Debug|x64.Build.0 = Debug|x64
+		{AA08BE21-32EF-4FC8-A170-5C825C02BF46}.Debug|x86.ActiveCfg = Debug|Win32
+		{AA08BE21-32EF-4FC8-A170-5C825C02BF46}.Debug|x86.Build.0 = Debug|Win32
+		{AA08BE21-32EF-4FC8-A170-5C825C02BF46}.Release|x64.ActiveCfg = Release|x64
+		{AA08BE21-32EF-4FC8-A170-5C825C02BF46}.Release|x64.Build.0 = Release|x64
+		{AA08BE21-32EF-4FC8-A170-5C825C02BF46}.Release|x86.ActiveCfg = Release|Win32
+		{AA08BE21-32EF-4FC8-A170-5C825C02BF46}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FFE881BE-4552-48DB-BDA3-F0EE9EE9973B}
+	EndGlobalSection
+EndGlobal
