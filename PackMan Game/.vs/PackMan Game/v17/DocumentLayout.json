@@ -1,12 +1,23 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\dddde\\Desktop\\\uD559\uC6D0\uC218\uC5C5 (\uD504\uB85C\uADF8\uB798\uBC0D)\\Pack-Man-Game\\PackMan Game\\",
+  "WorkspaceRootPath": "C:\\Users\\dddde\\Desktop\\Pack-Man-Game\\PackMan Game\\",
   "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
